@@ -97,9 +97,10 @@ const handleLogin = async () => {
     tokenCookie.value = response.token
 
     console.log(response.message)
-    router.push('/mom')
+    router.push('/products')
   }catch(error){
     console.log(`Email or password have a problem`);
+    errorMessages.value = 'Email or password have a problem'
   }
   
 } 
