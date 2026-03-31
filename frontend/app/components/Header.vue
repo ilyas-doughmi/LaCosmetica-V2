@@ -17,11 +17,17 @@
         </nav>
 
         <div class="hidden md:flex items-center space-x-4">
-          <NuxtLink 
+          <NuxtLink  v-if="!isAuth"
             to="/login" 
             class="px-8 py-3 text-sm font-semibold text-white bg-black rounded-full hover:bg-gray-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5"
           >
             Se Connecter
+          </NuxtLink>
+          <NuxtLink  v-if="isAuth"
+            to="/login" 
+            class="px-8 py-3 text-sm font-semibold text-white bg-black rounded-full hover:bg-gray-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5"
+          >
+            Panier
           </NuxtLink>
         </div>
 
@@ -38,4 +44,10 @@
   </header>
 </template>
 
+
+<script setup>
+
+const { isAuth } = useAuth()
+
+</script>
 
