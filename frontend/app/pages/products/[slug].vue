@@ -16,16 +16,13 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     <div class="bg-gray-50 p-6 md:p-8">
                         <div class="aspect-square w-full rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400 border border-gray-200">
-                            <svg class="w-20 h-20 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+<img :src="produit.images[0].image_url" alt="">
                         </div>
 
-                        <div class="mt-4 grid grid-cols-4 gap-3">
-                            <div class="aspect-square rounded-lg bg-gray-100 border border-gray-200"></div>
-                            <div class="aspect-square rounded-lg bg-gray-100 border border-gray-200"></div>
-                            <div class="aspect-square rounded-lg bg-gray-100 border border-gray-200"></div>
-                            <div class="aspect-square rounded-lg bg-gray-100 border border-gray-200"></div>
+                        <div v-if="produit.images.length > 1" class="mt-4 grid grid-cols-4 gap-3">
+                            <div v-for="image in produit.images" class="aspect-square rounded-lg bg-gray-100 border border-gray-200">
+                                    <img :src="image.image_url" alt="">
+                            </div>
                         </div>
                     </div>
 
@@ -82,7 +79,4 @@ const config = useRuntimeConfig()
 const slug = route.params.slug
 
 const { data: produit, pending, error } = useLazyFetch(`${config.public.apiBase}/products/${slug}`)
-definePageMeta({
-  middleware: 'auth'
-})
 </script>
