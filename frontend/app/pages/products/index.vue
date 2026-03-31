@@ -19,7 +19,7 @@
   <NuxtLink :to="`/products/${produit.slug}`" class="relative w-full h-64 bg-gray-50 overflow-hidden block">
     <img 
       v-if="produit.images && produit.images.length > 0" 
-      :src="produit.images[0].url" 
+      :src="produit.images[0].image_url" 
       :alt="produit.name" 
       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
     />
@@ -69,9 +69,6 @@ import Header from '../../components/Header.vue'
 import { ref } from 'vue'
 const config = useRuntimeConfig();
 
-definePageMeta({
-    middleware: 'auth'
-})
 
 
 const {data: products,pending} = await useLazyFetch(`${config.public.apiBase}/products`)
