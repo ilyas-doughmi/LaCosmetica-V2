@@ -8,8 +8,8 @@
         </NuxtLink>
 
         <nav class="hidden md:flex space-x-12">
-          <NuxtLink to="/produits" class="text-sm font-medium text-gray-600 hover:text-black uppercase tracking-wide transition-colors">
-            Boutique
+          <NuxtLink to="/products" class="text-sm font-medium text-gray-600 hover:text-black uppercase tracking-wide transition-colors">
+            Produits
           </NuxtLink>
           <NuxtLink to="/categories" class="text-sm font-medium text-gray-600 hover:text-black uppercase tracking-wide transition-colors">
             Collections
