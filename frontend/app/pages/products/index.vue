@@ -74,7 +74,7 @@ definePageMeta({
 })
 
 
-const {data: products,pending} = await useFetch(`${config.public.apiBase}/products`)
+const {data: products,pending} = await useLazyFetch(`${config.public.apiBase}/products`)
 </script>
 
 <style scoped>
