@@ -1,59 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# La Cosmetica V2 - Backend API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Backend REST construit avec Laravel 12 pour la gestion des utilisateurs, produits, commandes et operations staff/admin de La Cosmetica.
 
-## About Laravel
+## Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.2+
+- Laravel 12
+- PostgreSQL
+- JWT (`php-open-source-saver/jwt-auth`)
+- Spatie Sluggable
+- Spatie Data
+- L5 Swagger
+- Pest
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fonctionnalites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Authentification JWT: register, login, me, logout
+- Produits publics: liste et detail par slug
+- Commandes client: creation, listing, detail, annulation
+- Operations employe: preparation et livraison des commandes
+- Operations admin: CRUD categories, CRUD produits, statistiques
+- Validation metier: maximum 4 images par produit
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Configurer la base PostgreSQL dans `.env` puis lancer:
 
-## Laravel Sponsors
+```bash
+php artisan migrate --seed
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Demarrer le serveur:
 
-### Premium Partners
+```bash
+php artisan serve
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+API locale:
+- http://127.0.0.1:8000/api
 
-## Contributing
+## Endpoints principaux
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Public
 
-## Code of Conduct
+- `POST /api/register`
+- `POST /api/login`
+- `GET /api/products`
+- `GET /api/products/{slug}`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Auth client
 
-## Security Vulnerabilities
+- `GET /api/me`
+- `POST /api/logout`
+- `POST /api/orders`
+- `GET /api/orders`
+- `GET /api/orders/{orderid}`
+- `POST /api/orders/cancel/{cancleid}`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Role employe
 
-## License
+- `PUT /api/employee/orders/{id}/prepare`
+- `PUT /api/employee/orders/{id}/deliver`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Role admin
+
+- `GET /api/admin/stats`
+- `GET /api/admin/categories`
+- `POST /api/admin/categories`
+- `PUT /api/admin/categories/{id}`
+- `DELETE /api/admin/categories/{id}`
+- `GET /api/admin/products`
+- `POST /api/admin/products`
+- `PUT /api/admin/products/{id}`
+- `DELETE /api/admin/products/{id}`
+
+## Validation et erreurs
+
+- Reponses JSON avec codes HTTP standards (200, 201, 400, 401, 403, 404, 422)
+- Validation des payloads via Form Requests
+- Message dedie si plus de 4 images produit:
+	- `Limite de 4 images par produit depassee`
+
+## Tests
+
+Executer les tests:
+
+```bash
+php artisan test
+```
+
+Tests feature existants:
+- Auth
+- Categories admin
+- Produits par slug
+
+## Documentation API
+
+### Postman
+
+Collection:
+- `postman/LaCosmetica-API.postman_collection.json`
+
+Environment:
+- `postman/LaCosmetica-Local.postman_environment.json`
+
+### Swagger
+
+Generer la documentation:
+
+```bash
+php artisan l5-swagger:generate
+```
+
+Interface:
+- http://127.0.0.1:8000/api/documentation
+
+## Notes
+
+- Le role est controle par le middleware `role` (ex: `role:admin`, `role:employee`).
+- Le pattern DAO est applique au domaine Produit (`ProductDAOInterface`, `ProductDAO`).

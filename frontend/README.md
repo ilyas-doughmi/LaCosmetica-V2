@@ -1,75 +1,81 @@
-# Nuxt Minimal Starter
+# La Cosmetica V2 - Frontend
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Application frontend Nuxt 4 (Vue 3) qui consomme l'API La Cosmetica V2.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- Nuxt 4
+- Vue 3
+- Tailwind CSS
+
+## Pages disponibles
+
+- `/` : page d'accueil
+- `/login` : connexion utilisateur
+- `/register` : inscription utilisateur
+- `/products` : liste des produits
+- `/products/[slug]` : detail d'un produit
+- `/dashboard` : ecran dashboard (structure initiale)
+
+## Authentification
+
+- Le token JWT recu apres login/register est stocke dans un cookie `auth_token`.
+- Un middleware `auth` est present pour proteger des pages privees.
+
+## Installation
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Lancer en developpement
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Application locale:
+- http://localhost:3000
 
-Build the application for production:
+## Build production
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Configuration API
+
+Le frontend utilise `runtimeConfig.public.apiBase`:
+
+```ts
+runtimeConfig: {
+	public: {
+		apiBase: 'http://127.0.0.1:8000/api'
+	}
+}
+```
+
+Fichier:
+- `nuxt.config.ts`
+
+Assure-toi que le backend Laravel tourne sur la meme URL/port, ou adapte la valeur.
+
+## Scripts npm
+
+- `npm run dev` : demarrage local
+- `npm run build` : build production
+- `npm run generate` : generation statique
+- `npm run preview` : preview du build
+
+## Etat actuel
+
+Deja implemente:
+- UI login/register
+- listing produits
+- detail produit par slug
+
+A completer:
+- experience commande complete (panier, confirmation, suivi)
+- sections employee/admin cote frontend
+- protection des pages privees via `definePageMeta({ middleware: 'auth' })` la ou necessaire
