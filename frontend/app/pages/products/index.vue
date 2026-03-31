@@ -16,7 +16,7 @@
   class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
 >
   
-  <NuxtLink :to="`/produits/${produit.slug}`" class="relative w-full h-64 bg-gray-50 overflow-hidden block">
+  <NuxtLink :to="`/products/${produit.slug}`" class="relative w-full h-64 bg-gray-50 overflow-hidden block">
     <img 
       v-if="produit.images && produit.images.length > 0" 
       :src="produit.images[0].url" 
@@ -36,7 +36,7 @@
       {{ produit.category.name }}
     </span>
 
-    <NuxtLink :to="`/produits/${produit.slug}`" class="block mb-2">
+    <NuxtLink :to="`/products/${produit.slug}`" class="block mb-2">
       <h3 class="text-lg font-bold text-gray-900 group-hover:text-black transition-colors line-clamp-1">
         {{ produit.name }}
       </h3>
