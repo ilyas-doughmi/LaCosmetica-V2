@@ -7,7 +7,7 @@
         <p class="text-gray-600">Découvrez notre collection de cosmétiques naturels</p>
       </div>
     <div v-if="pending" class="text-gray-500">
-      Chargement des produits en cours... ⏳
+      Chargement des produits en cours...
     </div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div 
@@ -50,7 +50,7 @@
       <span class="text-xl font-bold text-gray-900">{{ produit.price }} €</span>
       
       <NuxtLink 
-        :to="`/produits/${produit.slug}`" 
+        :to="`/products/${produit.slug}`" 
         class="bg-black hover:bg-gray-800 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5 shadow hover:shadow-md"
       >
         Découvrir
