@@ -19,7 +19,7 @@
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                         <p class="text-lg font-bold text-gray-900">${{ order.total_amount }}</p>
-                        <button  class="px-3 py-1  text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5" v-if="order.status == 'pending'">cancel order</button>
+                        <button @click="cancelorder(order.id)" class="px-3 py-1  text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5" v-if="order.status == 'pending'">cancel order</button>
                     </div>
                 </div>
             </div>
@@ -33,10 +33,24 @@ import Header from '../../components/Header.vue'
 const config = useRuntimeConfig();
 const token = useCookie('auth_token')
 
+
 const {data: orders,pending,error} = await useLazyFetch(`${config.public.apiBase}/orders`,{
     headers:{
         Authorization: `Bearer ${token.value}`
     }
 })
+
+
+const cancelorder = async (id) => {
+    const res = await $fetch(`${config.public.apiBase}/orders/cancel/${id}`,{
+        method:'post',
+        headers:{
+            Authorization: `Bearer ${token.value}`
+        }
+
+    })
+
+    console.log(`cancel order with id ${id}`);
+}
 
 </script>
