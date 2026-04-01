@@ -24,10 +24,10 @@
             Se Connecter
           </NuxtLink>
           <NuxtLink  v-if="isAuth"
-            to="/panier" 
-            class="px-8 py-3 text-sm font-semibold text-white bg-black rounded-full hover:bg-gray-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5"
+            to="/mesorders" 
+            class="px-8 py-3 text-sm font-semibold text-black"
           >
-            Panier
+            Mes Orders
           </NuxtLink>
             <NuxtLink  v-if="isAuth"
             @click="logout" 
@@ -56,7 +56,7 @@
 const { isAuth } = useAuth()
 
 const logout = () => {
-  const token = useCookie('auth_token')
+  const token = useCookie('auth_tokenr')
 
   token.value = null
 
