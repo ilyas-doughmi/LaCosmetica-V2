@@ -70,12 +70,12 @@
             </div>
         </div>
     </div>
+    <Notification />
 </template>
 
 <script setup>
 import Header from '~/components/Header.vue'
-
-
+const { showNotification } = useNotification()
 const { isAuth } = useAuth()
 
 
@@ -92,8 +92,9 @@ const qty = ref(1)
 const { data: produit, pending, error } = useLazyFetch(`${config.public.apiBase}/products/${slug}`)
 
 
-const command = () => {
-  const res =  $fetch(`${config.public.apiBase}/orders`, {
+const command = async () => {
+    
+  const res =  await $fetch(`${config.public.apiBase}/orders`, {
   method: 'POST',
   headers: {
     Authorization: `Bearer ${token.value}`
@@ -107,7 +108,7 @@ const command = () => {
     ]
   }
 })
-    router.push('/mesorders')
+    showNotification(res.message,'success')
     console.log(`command pass : ${res.message}`);
 }
 </script>
