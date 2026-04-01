@@ -6,7 +6,9 @@
                 <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Mes commandes</h1>
                 <p class="text-gray-600 mt-2">Suivez vos commandes recentes en un coup d'oeil.</p>
             </div>
-            <div v-if="pending"><h1>loading data....</h1></div>
+            <div v-if="pending" class="min-h-[40vh] flex items-center justify-center">
+                <Loader />
+            </div>
             <div v-else-if="error" class="text-red-600"><h1>problem in fetching data</h1></div>
             <div v-else class="space-y-4">
                 <div v-for="order in orders"    :key="order.id" class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
