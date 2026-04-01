@@ -8,9 +8,9 @@
           Découvrez notre collection de cosmétiques naturels
         </p>
       </div>
-      <div v-if="pending" class="text-gray-500">
-        Chargement des produits en cours...
-      </div>
+          <div v-if="pending" class="min-h-[40vh] flex items-center justify-center">
+                <Loader />
+            </div>
       <div v-else-if="error" class="text-red-600">
         Problem in fetching data....
       </div>
