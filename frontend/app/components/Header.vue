@@ -56,11 +56,9 @@
 const { isAuth } = useAuth()
 
 const logout = () => {
-  const token = useCookie('auth_tokenr')
+  const token = useCookie('auth_token')
 
   token.value = null
-
-
   navigateTo('/login')
 }
 
