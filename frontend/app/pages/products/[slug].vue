@@ -11,8 +11,9 @@
                     Retour aux produits
                 </NuxtLink>
             </div>
-            <div v-if="pending"><h1>loading data....</h1></div>
-            <div v-else-if="error"><h1 class="text-red-500">error in fetching data</h1></div>
+    <div v-if="pending" class="min-h-[40vh] flex items-center justify-center">
+                <Loader />
+            </div>            <div v-else-if="error"><h1 class="text-red-500">error in fetching data</h1></div>
             <div v-else class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     <div class="bg-gray-50 p-6 md:p-8">
