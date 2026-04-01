@@ -6,8 +6,9 @@
 				<h1 class="text-4xl font-bold text-gray-900 mb-2">Categories</h1>
 				<p class="text-gray-600">Explore our product collections by category.</p>
 			</div>
-
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-5 mt-8">
+            <div v-if="pending"><h1>loading data.....</h1></div>
+            <div v-else-if="error" class="text-red-600"><h1>error in loading data !! </h1></div>
+			<div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:grid-cols-3 lg:gap-5 mt-8">
 				<article
 					v-for="category in categories"
 					:key="category.id"
@@ -38,5 +39,7 @@ import Header from '../../components/Header.vue'
 
 const config = useRuntimeConfig()
 
-const categories = await $fetch(`${config.public.apiBase}/categories`)
+const { data: categories, pending, error, refresh } = await useLazyFetch(
+  `${config.public.apiBase}/categories`
+)
 </script>
