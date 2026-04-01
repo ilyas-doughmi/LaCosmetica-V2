@@ -9,6 +9,7 @@
     <div v-if="pending" class="text-gray-500">
       Chargement des produits en cours...
     </div>
+    <div v-else-if="error" class="text-red-600">Problem in fetching data....</div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div 
   v-for="produit in products" 
@@ -71,7 +72,7 @@ const config = useRuntimeConfig();
 
 
 
-const {data: products,pending} = await useLazyFetch(`${config.public.apiBase}/products`)
+const {data: products,pending,error} = await useLazyFetch(`${config.public.apiBase}/products`)
 </script>
 
 <style scoped>
