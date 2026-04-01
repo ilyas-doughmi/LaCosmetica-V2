@@ -12,7 +12,7 @@
     <div v-else-if="error" class="text-red-600">Problem in fetching data....</div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div 
-  v-for="produit in products" 
+  v-for="produit in filteredProducts" 
   :key="produit.id" 
   class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
 >
@@ -70,9 +70,21 @@ import Header from '../../components/Header.vue'
 import { ref } from 'vue'
 const config = useRuntimeConfig();
 
+const route = useRoute()
+
 
 
 const {data: products,pending,error} = await useLazyFetch(`${config.public.apiBase}/products`)
+
+const categoryQuery = route.query.category || null
+
+
+const filteredProducts = computed(() => {
+  if (!categoryQuery) return products.value || []
+  return (products.value || []).filter(
+    (p) => p.category.name === categoryQuery
+  )
+})
 </script>
 
 <style scoped>
