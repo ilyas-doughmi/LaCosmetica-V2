@@ -55,13 +55,14 @@
                             >
                         </div>
 
-                        <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                        <div v-if="isAuth" class="flex flex-col sm:flex-row gap-3 mt-auto">
                             <button class="bg-black hover:bg-gray-800 text-white text-sm font-medium px-6 py-3 rounded-full transition-all hover:-translate-y-0.5 shadow hover:shadow-md">
                                 Ajouter au panier
                             </button>
-                            <button class="text-gray-900 border border-gray-300 hover:border-gray-900 text-sm font-medium px-6 py-3 rounded-full transition-colors">
-                                Ajouter aux favoris
-                            </button>
+                        </div>
+
+                         <div v-else class="flex flex-col sm:flex-row gap-3 mt-auto">
+                            <h1>Login First</h1>
                         </div>
                     </div>
                 </div>
@@ -72,6 +73,10 @@
 
 <script setup>
 import Header from '~/components/Header.vue'
+
+
+const { isAuth } = useAuth()
+
 
 const route = useRoute() 
 const config = useRuntimeConfig()
