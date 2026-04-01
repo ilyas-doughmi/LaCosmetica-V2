@@ -84,10 +84,29 @@ const config = useRuntimeConfig()
 
 const slug = route.params.slug
 
+const token = useCookie('auth_token')
+
+const qty = ref(1)
+
 const { data: produit, pending, error } = useLazyFetch(`${config.public.apiBase}/products/${slug}`)
 
 
 const command = () => {
+  const res =  $fetch(`${config.public.apiBase}/orders`, {
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${token.value}`
+  },
+  body: {
+    products: [
+      {
+        slug: slug,
+        quantity: qty.value
+      }
+    ]
+  }
+})
 
+    console.log(`command pass : ${res.message}`);
 }
 </script>
