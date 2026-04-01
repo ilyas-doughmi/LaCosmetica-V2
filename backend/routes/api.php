@@ -9,8 +9,12 @@ use App\Http\Controllers\Api\Employee\OrderManagementController;
 use App\Http\Controllers\Api\Admin\StatsController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{slug}', [ProductController::class, 'show']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/categories', [CategoryController::class, 'index']);
+
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
@@ -22,21 +26,21 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::middleware(['auth:api', 'role:employee'])->group(function () {
+    Route::get('/employee/orders', [OrderManagementController::class, 'index']);
     Route::put('/employee/orders/{id}/prepare', [OrderManagementController::class, 'prepare']);
     Route::put('/employee/orders/{id}/deliver', [OrderManagementController::class, 'deliver']);
 });
 Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::get('/admin/stats', [StatsController::class, 'index']);
 });
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{slug}', [ProductController::class, 'show']);
+
 
 Route::middleware(['auth:api', 'role:admin'])->group(function () {
+
     Route::get('/admin/categories', [CategoryController::class, 'index']);
     Route::post('/admin/categories', [CategoryController::class, 'store']);
     Route::put('/admin/categories/{id}', [CategoryController::class, 'update']);
     Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy']);
-
     Route::get('/admin/products', [AdminProductController::class, 'index']);
     Route::post('/admin/products', [AdminProductController::class, 'store']);
     Route::put('/admin/products/{id}', [AdminProductController::class, 'update']);
