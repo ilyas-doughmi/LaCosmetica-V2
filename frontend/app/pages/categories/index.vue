@@ -20,9 +20,12 @@
 
 					<div class="flex items-center justify-between pt-4 border-t border-gray-100">
 						<span class="text-sm text-gray-500">{{ category.productsCount }} products</span>
-						<button class="text-sm font-medium text-gray-900 hover:text-black transition-colors">
+                        <NuxtLink :to="`/products?categorie=${category.name}`">
+                            						<button class="text-sm font-medium text-gray-900 hover:text-black transition-colors">
 							View
 						</button>
+                        </NuxtLink>
+
 					</div>
 				</article>
 			</div>
