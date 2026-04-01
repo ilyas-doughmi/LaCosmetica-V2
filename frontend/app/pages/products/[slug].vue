@@ -83,6 +83,7 @@ const route = useRoute()
 const config = useRuntimeConfig()
 
 const slug = route.params.slug
+const router = useRouter()
 
 const token = useCookie('auth_token')
 
@@ -106,7 +107,7 @@ const command = () => {
     ]
   }
 })
-
+    router.push('/mesorders')
     console.log(`command pass : ${res.message}`);
 }
 </script>
