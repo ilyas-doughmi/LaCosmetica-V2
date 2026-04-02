@@ -23,13 +23,19 @@
           >
             Se Connecter
           </NuxtLink>
-          <NuxtLink  v-if="isAuth"
+          <NuxtLink v-if="isAuth && role !== 'admin'"
             to="/mesorders" 
             class="px-8 py-3 text-sm font-semibold text-black"
           >
             Mes Orders
           </NuxtLink>
-            <NuxtLink  v-if="isAuth"
+          <NuxtLink v-if="isAuth && role === 'admin'"
+            to="/dashboard"
+            class="px-8 py-3 text-sm font-semibold text-black"
+          >
+            Admin Panel
+          </NuxtLink>
+          <NuxtLink v-if="isAuth"
             @click="logout" 
             class="px-8 py-3 text-sm font-semibold text-white bg-red-600 rounded-full hover:bg-red-800 transition-all duration-300 shadow-sm hover:shadow-lg transform hover:-translate-y-0.5"
           >
@@ -54,6 +60,8 @@
 <script setup>
 
 const { isAuth } = useAuth()
+
+const { role } = useUserRole()
 
 const logout = () => {
   const token = useCookie('auth_token')
