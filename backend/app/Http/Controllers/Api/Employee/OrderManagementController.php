@@ -8,6 +8,13 @@ use App\Models\Order;
 
 class OrderManagementController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::orderByDesc('id')->get();
+
+        return response()->json($orders, 200);
+    }
+
     public function prepare($id)
     {
         $order = Order::find($id);
