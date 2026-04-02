@@ -61,7 +61,7 @@
 
 const { isAuth } = useAuth()
 
-const { role } = useUserRole()
+const { role } = await useUserRole()
 
 const logout = () => {
   const token = useCookie('auth_token')
