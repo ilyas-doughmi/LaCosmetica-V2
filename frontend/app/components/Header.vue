@@ -23,11 +23,17 @@
           >
             Se Connecter
           </NuxtLink>
-          <NuxtLink v-if="isAuth && role !== 'admin'"
+          <NuxtLink v-if="isAuth && role === 'customer'"
             to="/mesorders" 
             class="px-8 py-3 text-sm font-semibold text-black"
           >
             Mes Orders
+          </NuxtLink>
+          <NuxtLink v-if="isAuth && role === 'employee'"
+            to="/employee/orders"
+            class="px-8 py-3 text-sm font-semibold text-black"
+          >
+            Employee Panel
           </NuxtLink>
           <NuxtLink v-if="isAuth && role === 'admin'"
             to="/dashboard"
